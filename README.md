@@ -18,9 +18,10 @@ The plugin now includes an automatic migration that handles the `audited:install
 
 ## Features
 
-- Consolidated audit logging for entity changes including their custom fields
-- When you change an Issue, Project, TimeEntry or other main entity with custom fields, all changes (including custom field changes) are recorded in a single audit entry
-- Prevents duplicate audit entries for custom field changes
+- **Automatic Installation**: No manual steps required beyond the standard plugin installation procedure
+- **Consolidated Audit Logging**: When you change an entity with custom fields (Issues, Projects, TimeEntries, etc.), all changes (including custom field changes) are recorded in a single audit entry
+- **Clean Audit Trail**: Prevents duplicate audit entries for custom field changes
+- **Efficient Storage**: Uses optimized data types for PostgreSQL databases
 
 How to remove
 -------
