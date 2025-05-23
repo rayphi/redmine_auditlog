@@ -9,12 +9,18 @@ How to use
 ```
   $ cd /path/to/redmine/plugins
   $ git clone https://github.com/RealEnder/redmine_auditlog
-  $ cd redmine_auditlog
-  $ rails generate audited:install # If using PostgreSQL, add "--audited-changes-column-type jsonb" for more efficient storage
   $ cd ../..
-  $ rake db:migrate RAILS_ENV="production"
+  $ rake redmine:plugins:migrate RAILS_ENV="production"
 ```
 Then restart Redmine.
+
+The plugin now includes an automatic migration that handles the `audited:install` generator and database migrations. For PostgreSQL databases, it will automatically use the more efficient `jsonb` storage type for audit changes.
+
+## Features
+
+- Consolidated audit logging for entity changes including their custom fields
+- When you change an Issue, Project, TimeEntry or other main entity with custom fields, all changes (including custom field changes) are recorded in a single audit entry
+- Prevents duplicate audit entries for custom field changes
 
 How to remove
 -------
