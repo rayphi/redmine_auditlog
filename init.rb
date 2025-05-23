@@ -8,9 +8,20 @@ Redmine::Plugin.register :redmine_auditlog do
   url 'https://github.com/RealEnder/redmine_auditlog'
   author_url 'https://www.stanev.org'
   requires_redmine :version_or_higher => '3.0.0'
-  Audited.current_user_method = :find_current_user
-
-  Rails.configuration.to_prepare do
+  Audited.current_user_method = :find_current_user  Rails.configuration.to_prepare do
+    # Entities with CustomValues - consolidated audit logs
+    Issue.send(:include, RedmineAuditlog::AuditlogPatchWithCustomValues)
+    Project.send(:include, RedmineAuditlog::AuditlogPatchWithCustomValues)
+    TimeEntry.send(:include, RedmineAuditlog::AuditlogPatchWithCustomValues)
+    Version.send(:include, RedmineAuditlog::AuditlogPatchWithCustomValues)
+    Document.send(:include, RedmineAuditlog::AuditlogPatchWithCustomValues)
+    Wiki.send(:include, RedmineAuditlog::AuditlogPatchWithCustomValues)
+    WikiContent.send(:include, RedmineAuditlog::AuditlogPatchWithCustomValues)
+    
+    # CustomValue is not directly audited
+    CustomValue.send(:include, RedmineAuditlog::AuditlogPatchCustomValue)
+    
+    # Regular entities without CustomValues
     Attachment.send(:include, RedmineAuditlog::AuditlogPatch)
     AuthSource.send(:include, RedmineAuditlog::AuditlogPatchAuthSource)
     Board.send(:include, RedmineAuditlog::AuditlogPatch)
@@ -18,13 +29,10 @@ Redmine::Plugin.register :redmine_auditlog do
     IssueCustomField.send(:include, RedmineAuditlog::AuditlogPatch)
     CustomField.send(:include, RedmineAuditlog::AuditlogPatch)
     CustomFieldEnumeration.send(:include, RedmineAuditlog::AuditlogPatch)
-    CustomValue.send(:include, RedmineAuditlog::AuditlogPatch)
-    Document.send(:include, RedmineAuditlog::AuditlogPatch)
     EmailAddress.send(:include, RedmineAuditlog::AuditlogPatch)
     EnabledModule.send(:include, RedmineAuditlog::AuditlogPatch)
     Import.send(:include, RedmineAuditlog::AuditlogPatch)
     ImportItem.send(:include, RedmineAuditlog::AuditlogPatch)
-    Issue.send(:include, RedmineAuditlog::AuditlogPatch)
     IssueCategory.send(:include, RedmineAuditlog::AuditlogPatch)
     IssueImport.send(:include, RedmineAuditlog::AuditlogPatch)
     IssuePriority.send(:include, RedmineAuditlog::AuditlogPatch)
@@ -36,19 +44,14 @@ Redmine::Plugin.register :redmine_auditlog do
     MemberRole.send(:include, RedmineAuditlog::AuditlogPatch)
     Message.send(:include, RedmineAuditlog::AuditlogPatch)
     News.send(:include, RedmineAuditlog::AuditlogPatch)
-    Project.send(:include, RedmineAuditlog::AuditlogPatch)
     Repository::Mercurial.send(:include, RedmineAuditlog::AuditlogPatchRepository) rescue nil
     Repository.send(:include, RedmineAuditlog::AuditlogPatchRepository)
     Role.send(:include, RedmineAuditlog::AuditlogPatch)
     Setting.send(:include, RedmineAuditlog::AuditlogPatch)
-    TimeEntry.send(:include, RedmineAuditlog::AuditlogPatch)
     Token.send(:include, RedmineAuditlog::AuditlogPatchToken)
     Tracker.send(:include, RedmineAuditlog::AuditlogPatch)
     UserPreference.send(:include, RedmineAuditlog::AuditlogPatch)
-    Version.send(:include, RedmineAuditlog::AuditlogPatch)
     Watcher.send(:include, RedmineAuditlog::AuditlogPatch)
-    Wiki.send(:include, RedmineAuditlog::AuditlogPatch)
-    WikiContent.send(:include, RedmineAuditlog::AuditlogPatch)
     WikiPage.send(:include, RedmineAuditlog::AuditlogPatch)
     WikiRedirect.send(:include, RedmineAuditlog::AuditlogPatch)
     WorkflowPermission.send(:include, RedmineAuditlog::AuditlogPatch)
