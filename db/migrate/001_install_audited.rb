@@ -1,4 +1,4 @@
-class InstallAudited < ActiveRecord::Migration[5.2]
+class InstallAudited < ActiveRecord::Migration[6.1]
   def self.up
     # Skip if the table already exists
     return if table_exists?(:audits)

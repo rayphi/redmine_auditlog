@@ -1,14 +1,14 @@
 require 'redmine_auditlog'
 
-Redmine::Plugin.register :redmine_auditlog do
-  name 'Redmine Auditlog'
+Redmine::Plugin.register :redmine_auditlog do  name 'Redmine Auditlog'
   author 'Alex Stanev'
   description 'Provides full auditlog for user actions in Redmine instance.' 
-  version '0.0.5'
+  version '0.0.6'
   url 'https://github.com/RealEnder/redmine_auditlog'
-  author_url 'https://www.stanev.org'
-  requires_redmine :version_or_higher => '3.0.0'
-  Audited.current_user_method = :find_current_user  Rails.configuration.to_prepare do
+  author_url 'https://www.stanev.org'  requires_redmine :version_or_higher => '3.0.0'
+  Audited.current_user_method = :find_current_user
+  
+  Rails.configuration.to_prepare do
     # Entities with CustomValues - consolidated audit logs
     Issue.send(:include, RedmineAuditlog::AuditlogPatchWithCustomValues)
     Project.send(:include, RedmineAuditlog::AuditlogPatchWithCustomValues)

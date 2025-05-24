@@ -33,12 +33,12 @@ How to remove
 Then restart Redmine. This will not remove the `audits` table.
 
 
-Compatible with:	Redmine 3.4.x, 3.3.x, 3.2.x, 3.1.x, 3.0.x, 4.0.x, 4.1.x , 4.2.x   
-Tested with Redmine 3.4.6, 4.1.1, 4.2.10
+Compatible with:	Redmine 3.4.x, 3.3.x, 3.2.x, 3.1.x, 3.0.x, 4.0.x, 4.1.x, 4.2.x, 5.0.x   
+Tested with Redmine 3.4.6, 4.1.1, 4.2.10, 5.0.5
 
 License
 -------
-Copyright 2018-2023 Alex Stanev <alex@stanev.org>   
+Copyright 2018-2025 Alex Stanev <alex@stanev.org>   
 This plugin is released under the GPL v3 license. See   
 LICENSE for more information.
 
