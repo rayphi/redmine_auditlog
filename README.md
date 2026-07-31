@@ -1,7 +1,13 @@
-Redmine Auditlog
+Redmine Auditlog (custom branch)
 -------
 
-Provides full auditlog for user actions in Redmine instance.
+This branch is a narrowed-down variant of the plugin: instead of auditing every
+Redmine model, it only records changes to a single custom field, selected via
+Administration &rarr; Plugins &rarr; Redmine Auditlog &rarr; Configure. No custom
+field is tracked until one is selected there.
+
+See the [main branch](https://github.com/rayphi/redmine_auditlog/tree/main) for
+the full, standard version of this plugin.
 
 
 How to use
@@ -19,8 +25,8 @@ The plugin now includes an automatic migration that handles the `audited:install
 ## Features
 
 - **Automatic Installation**: No manual steps required beyond the standard plugin installation procedure
-- **Consolidated Audit Logging**: When you change an entity with custom fields (Issues, Projects, TimeEntries, etc.), all changes (including custom field changes) are recorded in a single audit entry
-- **Clean Audit Trail**: Prevents duplicate audit entries for custom field changes
+- **Configurable Scope**: Only the custom field selected in the plugin settings is audited; everything else is left untouched
+- **Bounded History**: Keeps at most 4 audit entries per custom value
 - **Efficient Storage**: Uses optimized data types for PostgreSQL databases
 
 How to remove

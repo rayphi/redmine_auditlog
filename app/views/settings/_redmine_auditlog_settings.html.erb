@@ -1,0 +1,9 @@
+<p>
+  <label for="settings_billable_custom_field_id">Tracked custom field</label>
+  <%= select_tag 'settings[billable_custom_field_id]',
+        options_for_select(CustomField.order(:name).pluck(:name, :id).map { |name, id| [name, id.to_s] }, @settings['billable_custom_field_id']),
+        include_blank: true %>
+</p>
+<p class="hint">
+  Only changes to the selected custom field are recorded in the audit log. Leave blank to disable custom field auditing.
+</p>

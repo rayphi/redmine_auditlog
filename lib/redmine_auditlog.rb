@@ -76,12 +76,17 @@ module RedmineAuditlog
     end
   end
 
-  # Prevent direct auditing of CustomValue to avoid duplicate entries
+  # Audits only the custom field configured via the plugin settings
   module AuditlogPatchCustomValue
     def self.included(base)
       base.class_eval do
         unloadable # Send unloadable so it will not be unloaded in development
-        # We intentionally don't call 'audited' here
+        audited if: :tracked_custom_value?, max_audits: 4, on: [:update]
+
+        def tracked_custom_value?
+          tracked_id = Setting.plugin_redmine_auditlog['billable_custom_field_id']
+          tracked_id.present? && custom_field_id.to_s == tracked_id.to_s
+        end
       end
     end
   end
